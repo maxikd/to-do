@@ -1,4 +1,5 @@
-using Todo.Api.Models;
+using Todo.Api.Services;
+using Todo.Api.Services.Abstractions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHealthChecks();
+
+builder.Services.AddControllers();
+
+builder.Services.AddSingleton<IToDoService, ToDoService>();
 
 var app = builder.Build();
 
@@ -19,16 +24,6 @@ app.UseHttpsRedirection();
 
 app.MapHealthChecks("healthcheck");
 
-app.MapGet("/todos", () =>
-{
-    var todos = Enumerable.Range(1, 5)
-        .Select(i => new TodoModel($"This is To-Do {i}", i % 2 == 0))
-        .ToList();
-    var todoList = new TodoListModel(todos);
-
-    return Results.Ok(todoList);
-})
-.WithName("GetToDos")
-.WithOpenApi();
+app.MapControllers();
 
 await app.RunAsync();
