@@ -4,9 +4,9 @@ namespace Todo.Api.Services.Abstractions;
 
 public interface IToDoService
 {
-    IEnumerable<TodoListModel> GetAll();
-    void CreateToDoList(TodoListModel todoListModel);
-    void AddToDo(Guid toDoListId, TodoModel todoModel);
-    void UpdateToDoList(TodoListModel todoListModel);
-    void UpdateToDo(TodoModel todoModel);
+    IEnumerable<ToDoListModel> GetAll();
+    void CreateToDoList(ToDoListModel todoListModel);
+    void AddToDo(Guid toDoListId, ToDoModel todoModel);
+    void UpdateToDoList(ToDoListModel todoListModel);
+    void UpdateToDo(ToDoModel todoModel);
 }

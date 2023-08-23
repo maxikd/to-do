@@ -28,7 +28,7 @@ public class ToDoController : ControllerBase
     [HttpPost]
     [Route("/")]
     public IActionResult Create(
-        [FromBody] TodoListModel todoListModel)
+        [FromBody] ToDoListModel todoListModel)
     {
         ToDoService.CreateToDoList(todoListModel);
         return Created("", todoListModel);
@@ -38,7 +38,7 @@ public class ToDoController : ControllerBase
     [Route("/{listId}")]
     public IActionResult Add(
         [FromRoute] Guid listId,
-        [FromBody] TodoModel todo)
+        [FromBody] ToDoModel todo)
     {
         ToDoService.AddToDo(listId, todo);
         return Created("", todo);
@@ -48,7 +48,7 @@ public class ToDoController : ControllerBase
     [Route("/{listId}")]
     public IActionResult Update(
         [FromRoute] Guid listId,
-        [FromBody] TodoListModel todoListModel)
+        [FromBody] ToDoListModel todoListModel)
     {
         ToDoService.UpdateToDoList(todoListModel);
         return Ok(todoListModel);
@@ -59,7 +59,7 @@ public class ToDoController : ControllerBase
     public IActionResult Update(
         [FromRoute] Guid listId,
         [FromRoute] Guid todoId,
-        [FromBody] TodoModel todo)
+        [FromBody] ToDoModel todo)
     {
         ToDoService.UpdateToDo(todo);
         return Ok(todo);

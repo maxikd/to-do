@@ -5,12 +5,12 @@ namespace Todo.Api.Services;
 
 public class ToDoService : IToDoService
 {
-    private List<TodoListModel> _todos = new List<TodoListModel>();
+    private List<ToDoListModel> _todos = new List<ToDoListModel>();
 
     public ToDoService()
     {
         var todos = Enumerable.Range(1, 5)
-            .Select(i => new TodoModel
+            .Select(i => new ToDoModel
             {
                 Id = Guid.NewGuid(),
                 Text = $"This is To-Do {i}",
@@ -18,7 +18,7 @@ public class ToDoService : IToDoService
             })
             .ToList();
 
-        var todoList = new TodoListModel
+        var todoList = new ToDoListModel
         {
             Id = Guid.NewGuid(),
             Title = "My first to-do",
@@ -28,13 +28,13 @@ public class ToDoService : IToDoService
         _todos.Add(todoList);
     }
 
-    public IEnumerable<TodoListModel> GetAll()
+    public IEnumerable<ToDoListModel> GetAll()
     {
         return _todos;
     }
 
     public void CreateToDoList(
-        TodoListModel todoListModel)
+        ToDoListModel todoListModel)
     {
         todoListModel.Id = Guid.NewGuid();
         _todos.Add(todoListModel);
@@ -42,7 +42,7 @@ public class ToDoService : IToDoService
 
     public void AddToDo(
         Guid toDoListId,
-        TodoModel todoModel)
+        ToDoModel todoModel)
     {
         var toDoList = _todos.FirstOrDefault(model => model.Id == toDoListId);
         if (toDoList is null)
@@ -52,7 +52,7 @@ public class ToDoService : IToDoService
     }
 
     public void UpdateToDoList(
-        TodoListModel todoListModel)
+        ToDoListModel todoListModel)
     {
         var toDoList = _todos.FirstOrDefault(model => model.Id == todoListModel.Id);
         if (toDoList is null)
@@ -62,7 +62,7 @@ public class ToDoService : IToDoService
     }
 
     public void UpdateToDo(
-        TodoModel todoModel)
+        ToDoModel todoModel)
     {
         var toDo = _todos.SelectMany(toDos => toDos.ToDos).FirstOrDefault(toDo => toDo.Id == todoModel.Id);
         if (toDo is null)
